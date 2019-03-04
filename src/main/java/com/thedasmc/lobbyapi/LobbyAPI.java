@@ -3,11 +3,15 @@ package com.thedasmc.lobbyapi;
 import com.sun.istack.internal.NotNull;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.event.ServerConnectEvent;
+import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
+import net.md_5.bungee.event.EventHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,11 +20,11 @@ import java.util.Map;
 
 /**
  * @author tchristofferson
- * @version v1.0
+ * @version v0.1
  *
  * Created to use for mini-game lobbies such as a pre-game lobby.
  */
-public class LobbyAPI extends Plugin {
+public class LobbyAPI extends Plugin implements Listener {
 
     private static Map<String, Lobby> lobbies;
     private static Configuration config;
@@ -198,6 +202,24 @@ public class LobbyAPI extends Plugin {
         });
 
         ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, new File(getDataFolder(), "config.yml"));
+
+    }
+
+    @EventHandler
+    public void onPlayerDisconnectEvent(PlayerDisconnectEvent event) {
+
+        ProxiedPlayer player = event.getPlayer();
+
+        new HashMap<>(lobbies).forEach((name, lobby) -> {
+
+            if (lobby.contains(player)) {
+
+                lobby.removePlayer(player);
+                return;
+
+            }
+
+        });
 
     }
 

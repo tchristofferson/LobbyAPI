@@ -96,6 +96,12 @@ public class Lobby implements Iterable<ProxiedPlayer> {
 
     }
 
+    public boolean removePlayer(ProxiedPlayer player) {
+
+        return players.remove(player) != null;
+
+    }
+
     public boolean kickPlayer(UUID uuid, ServerConnectEvent.Reason reason) {
 
         ProxiedPlayer player = ProxyServer.getInstance().getPlayer(uuid);
@@ -123,6 +129,12 @@ public class Lobby implements Iterable<ProxiedPlayer> {
     public Map<ProxiedPlayer, Server> getPlayers() {
 
         return new HashMap<>(players);
+
+    }
+
+    public boolean contains(ProxiedPlayer player) {
+
+        return players.containsKey(player);
 
     }
 
