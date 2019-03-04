@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * @author tchristofferson
- * @version v0.1
+ * @version v1.0
  *
  * Created to use for mini-game lobbies such as a pre-game lobby.
  */
