@@ -1,0 +1,4 @@
+name: LobbyAPI
+main: com.thedasmc.lobbyapi.LobbyAPI
+version: 1.0
+author: tchristofferson
